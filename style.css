@@ -469,10 +469,16 @@ body.dark-theme .moon-icon {
 .hero-content {
     position: relative;
     z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    width: 100%;
 }
 
 .hero-text-container {
     max-width: 680px;
+    flex: 1;
 }
 
 .hero-tagline {
@@ -503,6 +509,78 @@ body.dark-theme .moon-icon {
 .hero-cta {
     display: flex;
     gap: 1rem;
+}
+
+/* Hero Logo Styles */
+.hero-logo-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 380px;
+    height: 380px;
+    flex-shrink: 0;
+}
+
+/* Blurred backplate glow to eliminate any sharp edges */
+.hero-logo-container::before {
+    content: '';
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.98) 0%,
+        rgba(224, 242, 254, 0.95) 30%,
+        rgba(186, 230, 253, 0.6) 55%,
+        rgba(56, 189, 248, 0.25) 75%,
+        transparent 95%
+    );
+    filter: blur(25px);
+    z-index: 1;
+    opacity: 0.9;
+}
+
+.hero-logo-container.scroll-reveal {
+    transition-delay: 0.6s;
+}
+
+.hero-logo-container.scroll-reveal.revealed::before {
+    animation: logoGlowPulse 6s ease-in-out infinite;
+}
+
+.hero-logo-img {
+    max-width: 70%;
+    max-height: 70%;
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.5s ease;
+}
+
+.hero-logo-container:hover .hero-logo-img {
+    transform: scale(1.05);
+}
+
+@keyframes logoGlowPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.9;
+        filter: blur(25px);
+    }
+    50% {
+        transform: scale(1.06);
+        opacity: 1;
+        filter: blur(32px);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.9;
+        filter: blur(25px);
+    }
 }
 
 /* Mouse Scroll Down Indicator Animation */
@@ -821,17 +899,20 @@ body.dark-theme .faq-question {
 .faq-answer {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.35s ease, padding 0.35s ease;
-    padding: 0 1.5rem;
+    transition: max-height 0.35s ease;
     color: var(--text-muted);
     font-size: 0.95rem;
     border-top: 1px solid transparent;
 }
 
 .faq-item.active .faq-answer {
-    max-height: 200px; /* Large enough for normal paragraphs */
-    padding: 1rem 1.5rem 1.5rem;
     border-top: 1px solid var(--border-color);
+}
+
+.faq-answer p {
+    padding: 1rem 1.5rem 1.5rem;
+    margin: 0;
+    line-height: 1.6;
 }
 
 /* Consultation Form Styling */
@@ -1137,6 +1218,38 @@ body.dark-theme .faq-question {
         padding: 0 1.5rem;
     }
     
+    .hero-section {
+        height: auto;
+        min-height: 100vh;
+        padding: 7.5rem 0 5rem 0;
+        overflow: visible;
+        display: flex;
+        align-items: center;
+    }
+
+    .hero-content {
+        flex-direction: column-reverse;
+        justify-content: center;
+        text-align: center;
+        gap: 3rem;
+    }
+
+    .hero-text-container {
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-cta {
+        justify-content: center;
+    }
+
+    .hero-logo-container {
+        width: 300px;
+        height: 300px;
+    }
+    
     .hero-title {
         font-size: 3rem;
     }
@@ -1321,5 +1434,10 @@ body.dark-theme .form-notion-icon-wrapper {
     
     .navbar-content {
         padding: 0 1rem;
+    }
+
+    .hero-logo-container {
+        width: 240px;
+        height: 240px;
     }
 }
